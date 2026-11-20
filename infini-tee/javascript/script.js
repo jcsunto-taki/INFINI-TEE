@@ -8,7 +8,7 @@ contactForm.addEventListener("submit", function (event) {
     const email = document.getElementById("email").value;
     const message = document.getElementById("message").value;
 
-    const recipient = "jasunto@up.edu.ph";
+    const recipient = "orders@exaplewebsite142.com";
     const subject = "INFINI-TEE Contact Form";
 
     const body =
