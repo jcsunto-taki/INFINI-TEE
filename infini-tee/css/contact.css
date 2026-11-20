@@ -1,0 +1,368 @@
+/* =========================
+   GENERAL PAGE
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    background-color: #E5E7EB
+}
+
+body {
+    background-color: #E5E7EB;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    color: #171717;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.page-container {
+    width: 95%;
+    max-width: 1200px;
+    min-height: 700px;
+    margin: 20px auto;
+    padding: 35px 40px 25px;
+    background-color: #E5E7EB;
+}
+
+
+/* =========================
+   SECTION 1: HEADER
+========================= */
+
+.site-header {
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* LOGO AND BRAND */
+
+.brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #3157D5;
+    white-space: normal;
+    text-decoration: none;
+}
+
+.brand-lockup:hover {
+    color: #3157D5;
+}
+
+.site-logo {
+    width: 82px;
+    height: 82px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.brand-lockup strong {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    line-height: 1.1;
+}
+
+.brand-lockup small {
+    display: block;
+    font-family: "Inter", sans-serif;
+    margin-top: 4px;
+    font-size: .77rem;
+    letter-spacing: .015em;
+}
+
+/* NAVIGATION */
+
+.site-header .navbar {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.site-header .navbar a {
+    color: #222;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.site-header .navbar a:hover {
+    color: #3459d6;
+}
+
+
+/* =========================
+   SECTION 2: CONTACT HEADING
+========================= */
+
+.contact-heading {
+    background-color: #3459d6;
+    color: white;
+    text-align: center;
+    font-size: 23px;
+    font-weight: 700;
+    border-radius: 6px;
+    width: 80%;
+    margin: 40px auto 35px;
+    padding: 5px;
+}
+
+
+/* =========================
+   SECTION 3: CONTACT FORM
+========================= */
+
+.contact-form {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.form-top {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.form-group {
+    min-width: 0;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    border: 1px solid #777;
+    border-radius: 0;
+    padding: 9px;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    border-color: #3459d6;
+    box-shadow: 0 0 0 0.2rem rgba(52, 89, 214, 0.15);
+}
+
+.message-group {
+    margin-top: 25px;
+}
+
+.message-group textarea {
+    width: 100%;
+    min-height: 115px;
+    resize: vertical;
+}
+
+/* SEND BUTTON */
+
+.send-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.send-button {
+    width: 170px;
+    background-color: #3459d6;
+    color: white;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    padding: 7px;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background-color: #2545b5;
+}
+
+.send-button:focus-visible {
+    outline: 3px solid #9aafff;
+    outline-offset: 3px;
+}
+
+
+/* =========================
+   SECTION 4: CONTACT INFO
+========================= */
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 25px;
+    margin-top: 55px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.info-item i {
+    font-size: 45px;
+    color: #222;
+}
+
+.info-item a,
+.info-item span {
+    display: block;
+    width: 100%;
+    background-color: #3459d6;
+    color: white;
+    text-decoration: none;
+    border-radius: 7px;
+    padding: 7px 5px;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.info-item a:hover {
+    background-color: #2545b5;
+}
+
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* TABLETS AND SMALLER LAPTOPS */
+
+@media (max-width: 1100px) {
+
+    .site-header {
+        flex-wrap: wrap;
+    }
+
+    .brand {
+        flex-basis: 100%;
+    }
+
+    .site-header .navbar {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .contact-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* MOBILE DEVICES */
+
+@media (max-width: 600px) {
+
+    .page-container {
+        width: 100%;
+        margin: 0;
+        padding: 25px 18px;
+    }
+
+    .site-header {
+        gap: 15px;
+    }
+
+    .brand-lockup {
+    gap: 12px;}
+    
+    .site-logo {
+    width: 82px;
+    height: 82px;}
+    
+    .brand-lockup strong {
+    font-size: 1.2rem;}
+    
+    .brand-lockup small {
+    font-size: .62rem;}
+
+    .contact-heading {
+        width: 95%;
+        margin: 30px auto;
+        font-size: 20px;
+    }
+
+    .contact-form {
+        width: 95%;
+    }
+
+    .form-top {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .contact-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px 15px;
+        margin-top: 40px;
+    }
+
+}
+
+
+/* VERY SMALL MOBILE DEVICES */
+
+@media (max-width: 400px) {
+
+    .brand-title h1 {
+        font-size: 21px;
+    }
+
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* =========================
+   BACK TO CART BUTTON
+========================= */
+
+.back-container {
+    width: 85%;
+    margin: 0 auto 20px;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #3459d6;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.back-button:hover {
+    color: #2545b5;
+}
+
+.back-button i {
+    font-size: 16px;
+}
