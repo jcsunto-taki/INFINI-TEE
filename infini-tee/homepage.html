@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- This is the head: metadata, fonts, Bootstrap, and favicon. -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#3157d5" />
+    <title>INFINI-TEE</title>
+
+    <link rel="icon" href="Favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- This block contains the styles for the whole page. -->
+    <style>
+      :root {
+        --obsidian-blue: #3157d5;
+        --white: #ffffff;
+        --matte-black: #171717;
+        --light-gray: #e5e7eb;
+      }
+
+      /* This keeps padding and borders inside the element size. */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--light-gray);
+        color: var(--matte-black);
+        font-family: "Inter", sans-serif;
+        font-size: 15px;
+      }
+
+      /* This skip link appears when someone uses the keyboard. */
+      .skip-link {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 2000;
+        transform: translateY(-150%);
+        border-radius: 6px;
+        background: var(--matte-black);
+        color: var(--white);
+        padding: 10px 14px;
+        text-decoration: none;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+        color: var(--white);
+      }
+
+      /* This makes the main page use the full screen. */
+      .page-shell {
+        width: 100%;
+        min-height: 100vh;
+        background: var(--white);
+        overflow: hidden;
+      }
+
+      /* The header keeps the logo and navigation aligned. */
+      .brand-area {
+        min-height: 132px;
+        padding: 24px clamp(24px, 6vw, 80px);
+        border-bottom: 1px solid #cfd2d8;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        position: relative;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        flex: 1;
+      }
+
+      /* The logo stays fully visible inside this area. */
+      .brand-logo {
+        width: 82px;
+        height: 82px;
+        object-fit: contain;
+        flex: 0 0 82px;
+      }
+
+      .brand-copy {
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* The title and gray line sit together in this row. */
+      .brand-title-row {
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+
+      .brand-name {
+        margin-left: 10px;
+        color: var(--obsidian-blue);
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(30px, 3vw, 42px);
+        font-weight: 700;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      .brand-divider {
+        height: 2px;
+        flex: 0 1 calc(100% - 250px);
+        max-width: 900px;
+        margin-left: 18px;
+        background: #cfd2d8;
+      }
+
+      .tagline {
+        margin: 7px 0 0 10px;
+        color: var(--obsidian-blue);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.35;
+      }
+
+      /* Keep the placeholder navigation grouped beside the brand. */
+      .top-nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+        gap: clamp(14px, 2vw, 28px);
+        margin-left: 24px;
+        white-space: nowrap;
+      }
+
+      .top-nav span {
+        color: var(--matte-black);
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .top-nav span:hover {
+        color: var(--obsidian-blue);
+      }
+
+      /* This is the wide image area near the top of the homepage. */
+      .featured-image {
+        height: clamp(280px, 36vh, 380px);
+        min-height: 280px;
+        background: #f8f9fb;
+        display: grid;
+        place-items: end center;
+        border-bottom: 1px solid var(--light-gray);
+        overflow: hidden;
+      }
+
+      .featured-image img {
+        width: min(78%, 900px);
+        height: 100%;
+        max-height: 380px;
+        object-fit: cover;
+        object-position: center;
+        mix-blend-mode: multiply;
+      }
+
+      /* These Bootstrap columns arrange the three products evenly. */
+      .products {
+        padding: clamp(28px, 4vw, 52px) clamp(24px, 8vw, 120px);
+      }
+
+      .product-card {
+        height: 100%;
+        min-width: 0;
+        background: var(--white);
+        padding: 12px clamp(8px, 2vw, 28px);
+        transition: 180ms ease;
+      }
+
+      .product-card:hover,
+      .product-card:focus-within {
+        box-shadow: 0 8px 20px rgb(49 87 213 / 12%);
+        transform: translateY(-3px);
+      }
+
+      /* The cards are buttons for now, while the buy links stay inactive. */
+      .product-link {
+        width: 100%;
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: inherit;
+        display: block;
+        padding: 0;
+        text-align: left;
+      }
+
+      .product-link:focus-visible {
+        outline: 3px solid rgb(49 87 213 / 35%);
+        outline-offset: 4px;
+      }
+
+      .product-image {
+        width: 100%;
+        height: clamp(150px, 16vw, 220px);
+        border-radius: 0;
+        background: var(--light-gray);
+        object-fit: contain;
+        object-position: center;
+      }
+
+      .product-title {
+        min-height: 44px;
+        margin: 12px 0 4px;
+        color: var(--obsidian-blue);
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.22;
+      }
+
+      .product-price {
+        margin: 0;
+        color: var(--matte-black);
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      /* The footer has a soft gray background. */
+      .site-footer {
+        background: var(--light-gray);
+        border-top: 1px solid var(--light-gray);
+        padding: 24px clamp(24px, 6vw, 80px);
+      }
+
+      .copyright {
+        margin: 18px 0 0;
+        color: var(--matte-black);
+        font-size: 14px;
+        text-align: center;
+      }
+
+      /* This section follows the centered layout of the brand reference. */
+      .about-section {
+        background: var(--white);
+        border-top: 1px solid var(--light-gray);
+        padding: clamp(32px, 5vw, 56px) clamp(24px, 8vw, 120px) 40px;
+      }
+
+      .about-title-row {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(18px, 4.5vw, 34px);
+        margin: 0 auto 28px;
+      }
+
+      .about-title-row::before,
+      .about-title-row::after {
+        height: 1px;
+        flex: 1;
+        background: #b7b7b7;
+        content: "";
+      }
+
+      .about-title {
+        margin: 0;
+        color: var(--obsidian-blue);
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(20px, 3vw, 24px);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: nowrap;
+      }
+
+      .about-copy {
+        display: grid;
+        width: min(100%, 760px);
+        gap: 8px;
+        margin: 0 auto;
+      }
+
+      .about-text {
+        margin: 0;
+        color: var(--matte-black);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.55;
+        text-align: center;
+      }
+
+      .about-gallery {
+        display: grid;
+        width: min(72%, 820px);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin: 32px auto 0;
+      }
+
+      .about-image-card {
+        display: grid;
+        height: clamp(210px, 34vw, 340px);
+        min-height: 210px;
+        place-items: center;
+        overflow: hidden;
+        border-radius: 5px;
+        background: var(--obsidian-blue);
+      }
+
+      .about-image-card img {
+        width: min(70%, 180px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--white);
+        object-fit: contain;
+      }
+
+      :focus-visible {
+        outline: 3px solid rgb(49 87 213 / 45%);
+        outline-offset: 3px;
+      }
+
+      /* These rules adjust the layout for smaller screens. */
+      @media (max-width: 576px) {
+        body {
+          font-size: 14px;
+        }
+
+        .brand-area {
+          min-height: 0;
+          padding: 14px 16px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 12px;
+        }
+
+        .brand-lockup {
+          flex: none;
+        }
+
+        .brand-logo {
+          width: 58px;
+          height: 58px;
+          flex-basis: 58px;
+        }
+
+        .brand-name {
+          font-size: 28px;
+        }
+
+        .brand-divider {
+          margin-left: 10px;
+        }
+
+        .tagline {
+          font-size: 13px;
+        }
+
+        /* Stack navigation below the brand to prevent overlap on phones. */
+        .top-nav {
+          position: static;
+          justify-content: space-between;
+          gap: 8px;
+          margin: 0;
+          padding-top: 10px;
+          border-top: 1px solid #cfd2d8;
+        }
+
+        .top-nav span {
+          font-size: 12px;
+        }
+
+        .featured-image {
+          min-height: 320px;
+        }
+
+        .featured-image img {
+          width: 86%;
+          height: 260px;
+        }
+
+        .products {
+          padding: 20px 8px 24px;
+        }
+
+        .product-card {
+          padding: 8px;
+        }
+
+        .product-image {
+          height: 140px;
+        }
+
+        .product-title {
+          min-height: 40px;
+          font-size: 16px;
+        }
+
+        .product-price {
+          font-size: 14px;
+        }
+
+        .site-footer {
+          padding: 20px 16px;
+        }
+
+        .about-section {
+          padding: 36px 20px;
+        }
+
+        .about-title-row {
+          gap: 12px;
+          margin-bottom: 20px;
+        }
+
+        .about-gallery {
+          width: 100%;
+          gap: 7px;
+          margin-top: 26px;
+        }
+
+        .about-image-card {
+          height: 54vw;
+          min-height: 160px;
+          max-height: 250px;
+        }
+
+        .about-image-card img {
+          width: 78%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- This lets keyboard users jump straight to the main content. -->
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- This main section holds the header, featured image, and shirts. -->
+    <main id="main-content" class="container-fluid px-0">
+      <section class="page-shell" aria-labelledby="brand-title">
+        <!-- The header contains the logo, brand text, and nav labels. -->
+        <header class="brand-area">
+          <div class="brand-lockup">
+            <img class="brand-logo" src="Logo NoBG.png" alt="INFINI-TEE infinity logo" />
+
+            <div class="brand-copy">
+              <div class="brand-title-row">
+                <h1 id="brand-title" class="brand-name mb-0">INFINI-TEE</h1>
+                <div class="brand-divider" aria-hidden="true"></div>
+              </div>
+              <p class="tagline">
+                <strong>INFINITE OPTIONS.</strong> Express yourself. Without limits.
+              </p>
+            </div>
+          </div>
+
+          <!-- Copy the matching anchor into place when each page is ready. -->
+          <nav class="top-nav" aria-label="Primary navigation">
+            <!-- FOR FIXING: <a href="index.html">Home</a> -->
+            <span>Home</span>
+            <!-- FOR FIXING: <a href="shop.html">Shop</a> -->
+            <span>Shop</span>
+            <!-- FOR FIXING: <a href="cart.html">Cart</a> -->
+            <span>Cart</span>
+            <!-- FOR FIXING: <a href="contact.html">Contact Info</a> -->
+            <span>Contact Info</span>
+          </nav>
+        </header>
+
+        <!-- The featured image shows the main placeholder. -->
+        <div class="featured-image">
+          <img src="Every Tee.png" alt="Featured INFINI-TEE shirt" />
+        </div>
+
+        <!-- This is the three-column shirt section. -->
+        <div class="products">
+          <h2 class="visually-hidden">Featured Tees</h2>
+          <div class="row g-3">
+            <article class="col-4">
+              <div class="product-card">
+                <button
+                  class="product-link"
+                  type="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-title="A simple reminder to show up, get moving, and make the most of the day."
+                  aria-label="Don't Be Late Tee, 499 Philippine pesos"
+                >
+                              <!-- When this goes live: href="buy-dont-be-late.html" -->
+                  <img class="product-image" src="Late Tee.png" alt="Don't Be Late Tee" />
+                  <h3 class="product-title">Don't Be Late<br />Tee</h3>
+                  <p class="product-price">₱499</p>
+                </button>
+              </div>
+            </article>
+
+            <article class="col-4">
+              <div class="product-card">
+                <button
+                  class="product-link"
+                  type="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-title="A plain, comfortable tee designed for everyday wear."
+                  aria-label="Everyday Comfort Tee, 499 Philippine pesos"
+                >
+                  <!-- When this goes live: href="buy-everyday-comfort.html" -->
+                  <img class="product-image" src="Every Tee.png" alt="Everyday Comfort Tee" />
+                  <h3 class="product-title">Everyday Comfort<br />Tee</h3>
+                  <p class="product-price">₱499</p>
+                </button>
+              </div>
+            </article>
+
+            <article class="col-4">
+              <div class="product-card">
+                <button
+                  class="product-link"
+                  type="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-title="A simple statement for people who believe good work speaks for itself."
+                  aria-label="Do Good Work Tee, 499 Philippine pesos"
+                >
+                  <!-- When this goes live: href="buy-do-good-work.html" -->
+                  <img class="product-image" src="Work Tee.png" alt="Do Good Work Tee" />
+                  <h3 class="product-title">Do Good Work<br />Tee</h3>
+                  <p class="product-price">₱499</p>
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- This section introduces the brand and can hold the final About Us copy. -->
+    <section class="about-section" aria-labelledby="about-title">
+      <div class="about-title-row">
+        <h2 id="about-title" class="about-title">
+          <span class="visually-hidden">About Us: </span>INFINI-TEE
+        </h2>
+      </div>
+      <div class="about-copy">
+        <p class="about-text">
+          The name INFINI-TEE combines <strong>“INFINITY”</strong> and
+          <strong>“TEE”</strong>, representing endless possibilities in
+          personal style, self-expression, and the power of a great canvas.
+        </p>
+        <p class="about-text">
+          Built on the core belief of “INFINITE OPTIONS,” the brand empowers you to express yourself without limits, 
+          leaning into individuality, creativity, and personal taste.
+        </p>
+        <p class="about-text">
+          Beneath the big vision, though, Infinitee stays grounded in reality:
+          We’re just a small startup making a few shirts we actually like and genuinely want to
+          wear. We focus on quality and authenticity over hype, taking things
+          one step at a time, with more drops coming —— maybe.
+        </p>
+      </div>
+      <div
+        class="about-gallery"
+        role="group"
+        aria-label="INFINI-TEE logo placeholders for future brand imagery"
+      >
+        <div class="about-image-card">
+          <img src="Main Logo.jfif" alt="" />
+        </div>
+        <div class="about-image-card">
+          <img src="Main Logo.jfif" alt="" />
+        </div>
+        <div class="about-image-card">
+          <img src="Main Logo.jfif" alt="" />
+        </div>
+      </div>
+    </section>
+
+    <!-- The footer just shows the copyright. -->
+    <footer class="site-footer" aria-label="Footer">
+      <p class="copyright">© 2026 INFINI-TEE. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // This starts the small tooltips on the shirt cards.
+      document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (element) {
+        bootstrap.Tooltip.getOrCreateInstance(element);
+      });
+    </script>
+  </body>
+</html>
